@@ -59,7 +59,7 @@ The following environment variables can be used to customize the Certbot contain
 | `CERTBOT_DOMAINS`      | Comma-separated list of domains for which to obtain the certificate (example: `example.com,www.example.com`) | - |
 | `CERTBOT_CERT_NAME`    | Explicit certificate name to update/modify ([See official docs →](https://eff-certbot.readthedocs.io/en/stable/using.html#changing-a-certificate-s-domains)) | - |
 | `CERTBOT_EXPAND`       | **DEPRECATED**: Expand existing certificate to add domains (use CERTBOT_CERT_NAME instead, [see official docs →](https://eff-certbot.readthedocs.io/en/stable/using.html#re-creating-and-updating-existing-certificates)) | `false` |
-| `CERTBOT_EMAIL`        | Email address for Let's Encrypt notifications                       | - |
+| `CERTBOT_EMAIL`        | **Optional.** Email address for Let's Encrypt notifications. If omitted, the container will register with Let's Encrypt using `--register-unsafely-without-email`.                       | - |
 | `CERTBOT_KEY_TYPE`     | Type of private key to generate                                     | `ecdsa` |
 | `CERTBOT_SERVER`       | The ACME server URL                                                 | `https://acme-v02.api.letsencrypt.org/directory` |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API token for DNS authentication (see below how to create one)                         | - |
@@ -70,6 +70,11 @@ The following environment variables can be used to customize the Certbot contain
 | `PGID`                 | The group ID to run certbot as                                        | `0`                    |
 | `RENEWAL_INTERVAL`     | Interval between certificate renewal checks. Set to `0` to disable renewals and only run once.                         | 43200 seconds (12 hours) |
 | `REPLACE_SYMLINKS`     | Replaces symlinks with direct copies of the files they reference (required for Windows) | `false`                    |
+| `PROXY_TYPE`           | Proxy type for routing Certbot traffic. Supported values: `none`, `socks5`, `socks4`, `http`, `https`. When `none`, no proxy is used. | `none` |
+| `PROXY_HOST`           | Proxy hostname or IP address, required when `PROXY_TYPE` is not `none`. | - |
+| `PROXY_PORT`           | Proxy port, required when `PROXY_TYPE` is not `none`. | - |
+| `PROXY_USERNAME`       | Optional username for authenticated proxies. | - |
+| `PROXY_PASSWORD`       | Optional password for authenticated proxies. | - |
 
 ### Creating a Cloudflare API Token
 

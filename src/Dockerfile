@@ -20,12 +20,17 @@ ENV CERTBOT_DOMAINS="" \
     PUID=0 \
     PGID=0 \
     RENEWAL_INTERVAL=43200 \
-    REPLACE_SYMLINKS=false
+    REPLACE_SYMLINKS=false \
+    PROXY_TYPE="none" \
+    PROXY_HOST="" \
+    PROXY_PORT="" \
+    PROXY_USERNAME="" \
+    PROXY_PASSWORD=""
 
 COPY --chmod=700 entrypoint.sh /entrypoint.sh
 
 RUN apk update && \
-    apk add --no-cache shadow su-exec && \
+    apk add --no-cache shadow su-exec proxychains-ng && \
     addgroup -g "${CERTBOT_GID}" "${CERTBOT_GROUP}" && \
     adduser -u "${CERTBOT_UID}" -G "${CERTBOT_GROUP}" -D -H "${CERTBOT_USER}" && \
     mkdir -p /var/log/letsencrypt && \
